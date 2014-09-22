@@ -1,4 +1,4 @@
 USERNAME = ''
 PASSWORD = ''
-SUBREDDIT = ''
-USER_AGENT = ''
+SUBREDDIT = 'all'
+USER_AGENT = 'Open Source Random Dice Bot. Created by ParanoiaPlus'
