@@ -1,0 +1,4 @@
+USERNAME = ''
+PASSWORD = ''
+SUBREDDIT = ''
+USER_AGENT = ''
