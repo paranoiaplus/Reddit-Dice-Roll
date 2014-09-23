@@ -8,8 +8,8 @@ if __name__ == "__main__":
     while True:
         try:
             scanComments()
-        except Exception as e:
-            print("Error: ", str(e))
+        except Exception as error_with_functions:
+            print("Error: ", str(error_with_functions))
 
 
 
