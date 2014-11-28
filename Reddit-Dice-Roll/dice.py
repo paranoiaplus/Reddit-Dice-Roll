@@ -1,44 +1,36 @@
 import random
 import config
 
-# def getNumberOfSides():
+def getNumberofDice(rollString):
+	return int(rollString[0:rollString.find("d")])
 
-# def getNumberofDice():
+def getNumberOfSides(rollString):
+	return int(rollString[-(len(rollString) - 1 - len(str(numberOfDice))):])
 
-# def parseDiceInfo():
-	## call getNumberOfSides and getNumberofDice
-	## return list
-	## [0] = numsides
-	## [1] == numDice
+def findStartOfRoll(commandLocation):
+	return commandLocation + config.LENGTH_OF_INITIALIZER_COMMAND
 
-
-
-
-
-# Old
-# def determineRollInfo(commentBody):
-#     """Determines information of a roll i.e. the number of dice and sides per dice.
-#     Returns array with indices; the first being the number of dice and the second
-#     being number of sides per die."""
-#     commandLocation = commentBody.find("!Roll ")
-#     startOfRoll = commandLocation + 6       # Location where roll starts
-#     endOfRoll = commentBody[startOfRoll:].find(" ") + startOfRoll       # Location where roll ends
-#     if endOfRoll - startOfRoll is -1:
-#         rollString = commentBody[startOfRoll:]
-#     else:
-#         rollString = commentBody[startOfRoll:endOfRoll]
-#     numberOfDice = int(rollString[0:rollString.find("d")])
-#     numberOfSides = int(rollString[-(len(rollString) - 1 - len(str(numberOfDice))):])       # -1 accounts for the "d" in rollString 
-#     infoArray = [numberOfDice, numberOfSides]
-#     return infoArray
+def findEndOfRoll(commentBody, startOfRoll):
+	startOfRollToEndOfComment = commentBody[startOfRoll:]
+	endOfCommandInSubString = startOfRollToEndOfComment.find(" ")
+	endOfCommandInOriginalComment = startOfRoll + endOfCommandInSubString
+	return endOfCommandInOriginalComment
 
 
+def parseDiceInfo(commentBody):
+	locationOfCommandInComment = commentBody.find(config.ROLL_INITIALIZER_COMMAND)
+	beginningofRollinCommand = findStartOfRoll(locationOfCommandInComment)
+	endOfRollInCommand = findEndOfRoll(commentBody, beginningofRollinCommand)
+	if endOfRollInCommand - beginningofRollinCommand is -1:
+		rollString = commentBody[beginningofRollinCommand:]
+	else:
+		rollString = commentBody[beginningofRollinCommand:endOfRollInCommand]
+	numberofDice = getNumberOfDice(rollString)
+	numberOfSides = getNumberOfSides(rollString)
+	return [numberOfDice, numberOfSides]
 
 
-
-def rollDice(diceRollInformation):
-	numberOfSides = diceRollInformation[0]
-	numberOFDice = diceRollInformation[1]
+def rollDice(numberOfDice, numberOfSides):
 	valueOfDiceRoll = 0
 	for die in range(1, numberOfDice):
 		currentRoll = config.MINIMUM_DICE_ROLL + int(round(random.random() * numberOfSides))

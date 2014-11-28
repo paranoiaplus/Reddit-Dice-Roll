@@ -11,12 +11,3 @@ if __name__ == "__main__":
             functions.scanComments()
         except Exception as error_with_functions:
             print("Error: ", str(error_with_functions))
-
-
-
-
-
-
-
-
-
