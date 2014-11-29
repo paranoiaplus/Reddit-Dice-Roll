@@ -29,7 +29,7 @@ def constructReplyString(diceInfo):
     numberOfSides = diceInfo[1]
     rollResult = dice.rollDice(numberOfDice, numberOfSides)
     replyString = "You're rolling " + str(numberOfDice) + " dice with " + str(numberOfSides) + " sides each.\n"
-    replyString += "\nYour resulting roll is: **" + rollResult + "**!\n"
+    replyString += "\nYour resulting roll is: **" + str(rollResult) + "**!\n"
     replyString += "\n---\nPM /u/paranoiaplus for any suggestions or recommendations. Source code found [here](https://github.com/paranoiaplus/Reddit-Dice-Roll-Bot/)."
     return replyString
 
@@ -40,4 +40,4 @@ def scanComments():
             diceRollInfo = dice.parseDiceInfo(comment.body)
             commentReplyString = constructReplyString(diceRollInfo)
             comment.reply(commentReplyString)
-            completedRolls.append(comment.id)
+            completedRolls.add(comment.id)

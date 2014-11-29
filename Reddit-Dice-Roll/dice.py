@@ -1,11 +1,15 @@
 import random
 import config
 
-def getNumberofDice(rollString):
-	return int(rollString[0:rollString.find("d")])
+def getNumberOfDice(rollString):
+	beginningOfDiceNum = 0
+	seperatorBetweenDiceAndSides = "d"
+	endOfDiceNum = rollString.find(seperatorBetweenDiceAndSides)
+	numberOfDice = rollString[beginningOfDiceNum:endOfDiceNum]
+	return int(numberOfDice)
 
 def getNumberOfSides(rollString):
-	return int(rollString[-(len(rollString) - 1 - len(str(numberOfDice))):])
+	return int(rollString[rollString.find("d")+1:])
 
 def findStartOfRoll(commandLocation):
 	return commandLocation + config.LENGTH_OF_INITIALIZER_COMMAND
@@ -25,14 +29,17 @@ def parseDiceInfo(commentBody):
 		rollString = commentBody[beginningofRollinCommand:]
 	else:
 		rollString = commentBody[beginningofRollinCommand:endOfRollInCommand]
-	numberofDice = getNumberOfDice(rollString)
+	numberOfDice = getNumberOfDice(rollString)
 	numberOfSides = getNumberOfSides(rollString)
 	return [numberOfDice, numberOfSides]
 
 
 def rollDice(numberOfDice, numberOfSides):
+	print numberOfDice
+	print numberOfSides
 	valueOfDiceRoll = 0
-	for die in range(1, numberOfDice):
+	for die in range(0, numberOfDice):
 		currentRoll = config.MINIMUM_DICE_ROLL + int(round(random.random() * numberOfSides))
+		print "currentRoll ", currentRoll
 		valueOfDiceRoll += currentRoll
 	return valueOfDiceRoll
